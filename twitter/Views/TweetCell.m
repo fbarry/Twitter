@@ -50,20 +50,20 @@
             }
         }];
     }
-    else {
-        [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-            if(error){
-                 NSLog(@"Error unretweet tweet: %@", error.localizedDescription);
-            }
-            else{
-                self.tweet.retweeted = NO;
-                self.tweet.retweetCount--;
-                self.retweetCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
-                self.retweetCountLabel.textColor = [UIColor darkGrayColor];
-                [self.retweetIcon setImage:[UIImage imageNamed:@"retweet-icon.png"] forState:UIControlStateNormal];
-            }
-        }];
-    }
+//    else {
+//        [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+//            if(error){
+//                 NSLog(@"Error unretweet tweet: %@", error.localizedDescription);
+//            }
+//            else{
+//                self.tweet.retweeted = NO;
+//                self.tweet.retweetCount--;
+//                self.retweetCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
+//                self.retweetCountLabel.textColor = [UIColor darkGrayColor];
+//                [self.retweetIcon setImage:[UIImage imageNamed:@"retweet-icon.png"] forState:UIControlStateNormal];
+//            }
+//        }];
+//    }
 }
 
 - (IBAction)didTapFavor:(id)sender {
@@ -81,20 +81,20 @@
             }
         }];
     }
-    else {
-        [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-            if(error){
-                 NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
-            }
-            else{
-                self.tweet.favorited = NO;
-                self.tweet.favoriteCount--;
-                self.favorCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
-                self.favorCountLabel.textColor = [UIColor darkGrayColor];
-                [self.favorIcon setImage:[UIImage imageNamed:@"favor-icon.png"] forState:UIControlStateNormal];
-            }
-        }];
-    }
+//    else {
+//        [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+//            if(error){
+//                 NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
+//            }
+//            else{
+//                self.tweet.favorited = NO;
+//                self.tweet.favoriteCount--;
+//                self.favorCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
+//                self.favorCountLabel.textColor = [UIColor darkGrayColor];
+//                [self.favorIcon setImage:[UIImage imageNamed:@"favor-icon.png"] forState:UIControlStateNormal];
+//            }
+//        }];
+//    }
 }
 
 - (void)awakeFromNib {
