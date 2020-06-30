@@ -19,14 +19,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *replyIcon;
 @property (weak, nonatomic) IBOutlet UILabel *replyCountLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *retweetIcon;
 @property (weak, nonatomic) IBOutlet UILabel *retweetCountLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *favorIcon;
 @property (weak, nonatomic) IBOutlet UILabel *favorCountLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *messageIcon;
+@property (weak, nonatomic) IBOutlet UIButton *replyIcon;
+@property (weak, nonatomic) IBOutlet UIButton *retweetIcon;
+@property (weak, nonatomic) IBOutlet UIButton *favorIcon;
+@property (weak, nonatomic) IBOutlet UIButton *messageIcon;
+
 @property (strong, nonatomic) Tweet *tweet;
+
+- (void)refreshCellWithTweet:(Tweet *)tweet;
+- (IBAction)didTapRetweet:(id)sender;
+- (IBAction)didTapFavor:(id)sender;
 
 @end
 

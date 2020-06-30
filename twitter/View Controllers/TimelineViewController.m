@@ -10,9 +10,9 @@
 #import "APIManager.h"
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
-#import "Utilities.h"
+#import "ComposeViewController.h"
 
-@interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *tweets;
@@ -30,14 +30,23 @@
     
     self.tweets = [[NSMutableArray alloc] init];
     
+    [self getTimeline];
+    
+    self.tableView.refreshControl = [[UIRefreshControl alloc] init];
+    [self.tableView.refreshControl addTarget:self action:@selector(getTimeline) forControlEvents:UIControlEventValueChanged];
+    self.tableView.refreshControl.tintColor = [UIColor colorWithRed:21.0f/255 green:180.0f/255  blue:1 alpha:1];
+}
+
+- (void)getTimeline {
     // Get timeline
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
-            [self.tweets addObjectsFromArray:tweets];
+            self.tweets = (NSMutableArray *)tweets;
             [self.tableView reloadData];
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
+        [self.tableView.refreshControl endRefreshing];
     }];
 }
 
@@ -48,9 +57,12 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
+    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     Tweet *tweet = self.tweets[indexPath.row];
-        
-    return [Utilities initTweetCellWithTweet:tweet forTableView:tableView cellForRowAtIndexPath:indexPath];
+       
+    [cell refreshCellWithTweet:tweet];
+    
+    return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -61,14 +73,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    UINavigationController *navigationController = [segue destinationViewController];
+    ComposeViewController *composeController = (ComposeViewController *)navigationController.topViewController;
+    composeController.delegate = self;
 }
-*/
+
+- (void)didTweet:(nonnull Tweet *)tweet {
+    [self.tableView reloadData];
+}
 
 @end

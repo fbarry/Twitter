@@ -15,30 +15,7 @@
                                        forTableView:(nonnull UITableView *)tableView
                               cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
-    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
-                    
-    if (!tweet) {
-        return cell;
-    }
     
-    cell.tweet = tweet;
-    [cell.profilePicture setImageWithURL:tweet.user.profileImageURL];
-    cell.nameLabel.text = tweet.user.name;
-    [cell.verifiedIcon setHidden:!tweet.user.isVerified];
-    cell.usernameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
-    cell.dateLabel.text = tweet.createdAtString;
-    cell.contentLabel.text = tweet.text;
-    
-    cell.replyCountLabel.text = nil;
-    cell.retweetCountLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
-    cell.favorCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
-    
-    if (tweet.retweeted) {
-        [cell.retweetIcon setImage:[UIImage imageNamed:@"retweet-icon-green.png"]];
-    }
-    if (tweet.favorited) {
-        [cell.favorIcon setImage:[UIImage imageNamed:@"favor-icon-red.png"]];
-    }
     
     return cell;
     
