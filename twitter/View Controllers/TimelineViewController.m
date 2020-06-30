@@ -26,6 +26,7 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     self.tweets = [[NSMutableArray alloc] init];
     
@@ -47,17 +48,17 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
-    Tweet *tweet = nil;
-    
-    if (self.tweets.count > 0) {
-        tweet = self.tweets[indexPath.row];
-    }
+    Tweet *tweet = self.tweets[indexPath.row];
         
     return [Utilities initTweetCellWithTweet:tweet forTableView:tableView cellForRowAtIndexPath:indexPath];
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.tweets.count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 /*
