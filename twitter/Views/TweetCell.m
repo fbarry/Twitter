@@ -14,6 +14,17 @@
 @implementation TweetCell
 
 - (void)refreshCellWithTweet:(Tweet *)tweet {
+    
+    self.replyButtonView.delegate = self;
+    self.retweetButtonView.delegate = self;
+    self.messageButtonView.delegate = self;
+    self.favorButtonView.delegate = self;
+    
+    self.replyButtonView.type = REPLY;
+    self.retweetButtonView.type = RETWEET;
+    self.messageButtonView.type = MESSAGE;
+    self.favorButtonView.type = FAVOR;
+    
     self.tweet = tweet;
     [self.profilePicture setImageWithURL:tweet.user.profileImageURL];
     self.nameLabel.text = tweet.user.name;
@@ -22,21 +33,27 @@
     self.contentLabel.text = tweet.text;
     self.dateLabel.text = [NSDate shortTimeAgoSinceDate:self.tweet.createdDate];
                           
-    self.replyCountLabel.text = nil;
-    self.retweetCountLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
-    self.favorCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
+    self.replyButtonView.countLabel.text = nil;
+    self.messageButtonView.countLabel.text = nil;
+    self.retweetButtonView.countLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
+    self.favorButtonView.countLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
+    
+    [self.retweetButtonView.buttonIcon setImage:[UIImage imageNamed:@"retweet-icon.png"] forState:UIControlStateNormal];
+    [self.replyButtonView.buttonIcon setImage:[UIImage imageNamed:@"reply-icon.png"] forState:UIControlStateNormal];
+    [self.messageButtonView.buttonIcon setImage:[UIImage imageNamed:@"message-icon.png"] forState:UIControlStateNormal];
+    [self.favorButtonView.buttonIcon setImage:[UIImage imageNamed:@"favor-icon.png"] forState:UIControlStateNormal];
     
     if (tweet.retweeted) {
-        self.retweetCountLabel.textColor = [UIColor greenColor];
-        [self.retweetIcon setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateNormal];
+        self.retweetButtonView.countLabel.textColor = [UIColor greenColor];
+        [self.retweetButtonView.buttonIcon setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateNormal];
     }
     if (tweet.favorited) {
-        self.favorCountLabel.textColor = [UIColor redColor];
-        [self.favorIcon setImage:[UIImage imageNamed:@"favor-icon-red.png"] forState:UIControlStateNormal];
+        self.favorButtonView.countLabel.textColor = [UIColor redColor];
+        [self.favorButtonView.buttonIcon setImage:[UIImage imageNamed:@"favor-icon-red.png"] forState:UIControlStateNormal];
     }
 }
 
-- (IBAction)didTapRetweet:(id)sender {
+- (void)didTapRetweet {
     if (!self.tweet.retweeted) {
         [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
             if(error){
@@ -45,9 +62,9 @@
             else{
                 self.tweet.retweeted = YES;
                 self.tweet.retweetCount++;
-                self.retweetCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
-                self.retweetCountLabel.textColor = [UIColor greenColor];
-                [self.retweetIcon setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateNormal];
+                self.retweetButtonView.countLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
+                self.retweetButtonView.countLabel.textColor = [UIColor greenColor];
+                [self.retweetButtonView.buttonIcon setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateNormal];
             }
         }];
     }
@@ -67,7 +84,7 @@
 //    }
 }
 
-- (IBAction)didTapFavor:(id)sender {
+- (void)didTapFavor {
     if (!self.tweet.favorited) {
         [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
             if(error){
@@ -76,9 +93,9 @@
             else{
                 self.tweet.favorited = YES;
                 self.tweet.favoriteCount++;
-                self.favorCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
-                self.favorCountLabel.textColor = [UIColor redColor];
-                [self.favorIcon setImage:[UIImage imageNamed:@"favor-icon-red.png"] forState:UIControlStateNormal];
+                self.favorButtonView.countLabel.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
+                self.favorButtonView.countLabel.textColor = [UIColor redColor];
+                [self.favorButtonView.buttonIcon setImage:[UIImage imageNamed:@"favor-icon-red.png"] forState:UIControlStateNormal];
             }
         }];
     }

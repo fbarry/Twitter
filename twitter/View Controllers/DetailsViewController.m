@@ -11,8 +11,9 @@
 #import "UIImageView+AFNetworking.h"
 #import "DateTools.h"
 #import "APIManager.h"
+#import "ButtonView.h"
 
-@interface DetailsViewController ()
+@interface DetailsViewController () <ButtonViewProtocol>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -23,11 +24,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *retweetCommentCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *favorCountLabel;
-@property (weak, nonatomic) IBOutlet UIButton *replyIcon;
-@property (weak, nonatomic) IBOutlet UIButton *retweetIcon;
-@property (weak, nonatomic) IBOutlet UIButton *favorIcon;
-@property (weak, nonatomic) IBOutlet UIButton *messageIcon;
-//@property (strong, nonatomic) NSString *months = @[@"Jan", @"Feb", @"Mar", @"Apr", @"May", @"Jun", @"Jul", @"Aug", @"Sep", @"Oct", @"Nov", @"Dec"];
+@property (weak, nonatomic) IBOutlet ButtonView *replyButtonView;
+@property (weak, nonatomic) IBOutlet ButtonView *retweetButtonView;
+@property (weak, nonatomic) IBOutlet ButtonView *favorButtonView;
+@property (weak, nonatomic) IBOutlet ButtonView *messageButtonView;
 
 @end
 
@@ -35,6 +35,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.replyButtonView.delegate = self;
+    self.favorButtonView.delegate = self;
+    self.messageButtonView.delegate = self;
+    self.retweetButtonView.delegate = self;
     
     [self.profilePicture setImageWithURL:self.tweet.user.profileImageURL];
     self.nameLabel.text = self.tweet.user.name;
@@ -47,15 +52,37 @@
     self.retweetCommentCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
     self.favorCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
     
+    self.messageButtonView.type = MESSAGE;
+    self.replyButtonView.type = REPLY;
+    self.retweetButtonView.type = RETWEET;
+    self.favorButtonView.type = FAVOR;
+    
+    self.messageButtonView.countLabel.text = nil;
+    self.retweetButtonView.countLabel.text = nil;
+    self.favorButtonView.countLabel.text = nil;
+    self.replyButtonView.countLabel.text = nil;
+    
+    [self.replyButtonView.buttonIcon setImage:[UIImage imageNamed:@"reply-icon.png"] forState:UIControlStateNormal];
+    [self.messageButtonView.buttonIcon setImage:[UIImage imageNamed:@"message-icon.png"] forState:UIControlStateNormal];
+    
     if (self.tweet.retweeted) {
-        [self.retweetIcon setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateNormal];
+        [self.retweetButtonView.buttonIcon setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateNormal];
+    }
+    else {
+        [self.retweetButtonView.buttonIcon setImage:[UIImage imageNamed:@"retweet-icon.png"] forState:UIControlStateNormal];
     }
     if (self.tweet.favorited) {
-        [self.favorIcon setImage:[UIImage imageNamed:@"favor-icon-red.png"] forState:UIControlStateNormal];
+        [self.favorButtonView.buttonIcon setImage:[UIImage imageNamed:@"favor-icon-red.png"] forState:UIControlStateNormal];
+    }
+    else {
+        [self.favorButtonView.buttonIcon setImage:[UIImage imageNamed:@"favor-icon.png"] forState:UIControlStateNormal];
     }
 }
 
-- (IBAction)didTapRetweet:(id)sender {
+- (void)didTapRetweet {
+    
+    NSLog(@"Retweet called");
+    
     if (!self.tweet.retweeted) {
         [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
             if(error){
@@ -65,7 +92,7 @@
                 self.tweet.retweeted = YES;
                 self.tweet.retweetCount++;
                 self.retweetCommentCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
-                [self.retweetIcon setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateNormal];
+                [self.retweetButtonView.buttonIcon setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateNormal];
             }
         }];
     }
@@ -85,7 +112,10 @@
 //    }
 }
 
-- (IBAction)didTapFavor:(id)sender {
+- (void)didTapFavor {
+    
+    NSLog(@"Favor called");
+    
     if (!self.tweet.favorited) {
         [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
             if(error){
@@ -95,7 +125,7 @@
                 self.tweet.favorited = YES;
                 self.tweet.favoriteCount++;
                 self.favorCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
-                [self.favorIcon setImage:[UIImage imageNamed:@"favor-icon-red.png"] forState:UIControlStateNormal];
+                [self.favorButtonView.buttonIcon setImage:[UIImage imageNamed:@"favor-icon-red.png"] forState:UIControlStateNormal];
             }
         }];
     }
@@ -125,5 +155,6 @@
     // Pass the selected object to the new view controller.
 }
 */
+
 
 @end

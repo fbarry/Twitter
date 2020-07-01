@@ -22,6 +22,8 @@
 		8CF24C4124AAA4AA001E870D /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF24C4024AAA4AA001E870D /* TweetCell.m */; };
 		8CF24C4724AB86FF001E870D /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF24C4624AB86FF001E870D /* ComposeViewController.m */; };
 		8CF24C4C24ABF144001E870D /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF24C4B24ABF144001E870D /* DetailsViewController.m */; };
+		8CF24C5B24AD1047001E870D /* ButtonViewXIB.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CF24C5A24AD1047001E870D /* ButtonViewXIB.xib */; };
+		8CF24C5E24AD10D9001E870D /* ButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF24C5D24AD10D9001E870D /* ButtonView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,9 @@
 		8CF24C4624AB86FF001E870D /* ComposeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		8CF24C4A24ABF144001E870D /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		8CF24C4B24ABF144001E870D /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		8CF24C5A24AD1047001E870D /* ButtonViewXIB.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonViewXIB.xib; sourceTree = "<group>"; };
+		8CF24C5C24AD10D9001E870D /* ButtonView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButtonView.h; sourceTree = "<group>"; };
+		8CF24C5D24AD10D9001E870D /* ButtonView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ButtonView.m; sourceTree = "<group>"; };
 		C58ADBDFEDA94D602E91E0C1 /* Pods_twitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_twitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -139,6 +144,9 @@
 			children = (
 				8CF24C3F24AAA4AA001E870D /* TweetCell.h */,
 				8CF24C4024AAA4AA001E870D /* TweetCell.m */,
+				8CF24C5A24AD1047001E870D /* ButtonViewXIB.xib */,
+				8CF24C5C24AD10D9001E870D /* ButtonView.h */,
+				8CF24C5D24AD10D9001E870D /* ButtonView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -226,6 +234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CF24C5B24AD1047001E870D /* ButtonViewXIB.xib in Resources */,
 				6AD278E520BC4B970085BC29 /* LaunchScreen.storyboard in Resources */,
 				6AD278E220BC4B970085BC29 /* Assets.xcassets in Resources */,
 				6AD278E020BC4B950085BC29 /* Main.storyboard in Resources */,
@@ -287,6 +296,7 @@
 				6AD278DA20BC4B950085BC29 /* AppDelegate.m in Sources */,
 				8CF24C4724AB86FF001E870D /* ComposeViewController.m in Sources */,
 				6AD278F620BCB68B0085BC29 /* APIManager.m in Sources */,
+				8CF24C5E24AD10D9001E870D /* ButtonView.m in Sources */,
 				6AD2790920BCC04D0085BC29 /* TimelineViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

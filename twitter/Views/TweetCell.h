@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Tweet.h"
+#import "ButtonView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TweetCell : UITableViewCell
+@interface TweetCell : UITableViewCell <ButtonViewProtocol>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -19,19 +20,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
-@property (weak, nonatomic) IBOutlet UILabel *replyCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *retweetCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *favorCountLabel;
-@property (weak, nonatomic) IBOutlet UIButton *replyIcon;
-@property (weak, nonatomic) IBOutlet UIButton *retweetIcon;
-@property (weak, nonatomic) IBOutlet UIButton *favorIcon;
-@property (weak, nonatomic) IBOutlet UIButton *messageIcon;
+@property (weak, nonatomic) IBOutlet ButtonView *replyButtonView;
+@property (weak, nonatomic) IBOutlet ButtonView *retweetButtonView;
+@property (weak, nonatomic) IBOutlet ButtonView *favorButtonView;
+@property (weak, nonatomic) IBOutlet ButtonView *messageButtonView;
 
 @property (strong, nonatomic) Tweet *tweet;
 
 - (void)refreshCellWithTweet:(Tweet *)tweet;
-- (IBAction)didTapRetweet:(id)sender;
-- (IBAction)didTapFavor:(id)sender;
+- (void)didTapRetweet;
+- (void)didTapFavor;
 
 @end
 
