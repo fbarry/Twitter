@@ -36,7 +36,7 @@ The following **stretch** features are implemented:
 - [X] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network.
 - [X] User can reply to any tweet, and replies should be prefixed with the username and the reply_id should be set when posting the tweet (**2 points**)
 - [X] User sees embedded images in tweet if available
-- [ ] User can switch between timeline, mentions, or profile view through a tab bar (**3 points**)
+- [X] User can switch between timeline, mentions, or profile view through a tab bar (**3 points**)
 - [ ] Profile Page: pulling down the profile page should blur and resize the header image. (**4 points**)
 
 
@@ -66,10 +66,13 @@ Describe any challenges encountered while building the app.
 List an 3rd party libraries, icons, graphics, or other assets you used in your app.
 
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library
+- TTTAtributedLabels
+- BDBOAuth1Manager
+- DateTools
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright 2020 Fiona Barry
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
