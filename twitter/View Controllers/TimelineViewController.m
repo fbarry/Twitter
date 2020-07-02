@@ -118,7 +118,7 @@
 }
 
 - (void)didTweet {
-    [self.tableView reloadData];
+    [self getTimeline];
 }
 
 - (void)replyClicked:(Tweet *)tweet {
