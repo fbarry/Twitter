@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)replyClicked:(Tweet *)tweet;
 - (void)linkClicked:(NSURL *)url;
+- (void)didTapProfile:(User *)user;
 
 @end
 

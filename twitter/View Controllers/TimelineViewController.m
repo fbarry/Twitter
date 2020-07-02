@@ -15,6 +15,7 @@
 #import "LoginViewController.h"
 #import "DetailsViewController.h"
 #import "LinkViewController.h"
+#import "OtherUserViewController.h"
 
 @interface TimelineViewController () <TweetProtocol, ComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -34,11 +35,23 @@
     
     self.tweets = [[NSMutableArray alloc] init];
     
+    [self getUser];
     [self getTimeline];
     
     self.tableView.refreshControl = [[UIRefreshControl alloc] init];
     [self.tableView.refreshControl addTarget:self action:@selector(getTimeline) forControlEvents:UIControlEventValueChanged];
     self.tableView.refreshControl.tintColor = [UIColor colorWithRed:21.0f/255 green:180.0f/255  blue:1 alpha:1];
+}
+
+- (void)getUser {
+    [[APIManager shared] getCurrentUser:^(User *user, NSError *error) {
+        if (user) {
+            self.user = user;
+            NSLog(@"succes %@", user.name);
+        } else {
+            NSLog(@"😫😫😫 Error getting user: %@", error.localizedDescription);
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -85,24 +98,20 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    NSLog(@"click");
-
     if ([segue.identifier isEqualToString:@"Compose"]) {
         UINavigationController *navigationController = [segue destinationViewController];
         ComposeViewController *composeController = (ComposeViewController *)navigationController.topViewController;
         composeController.delegate = self;
         composeController.type = STATUS_TWEET;
+        composeController.user = self.user;
     }
-    
     else if ([segue.identifier isEqualToString:@"Details"]) {
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         Tweet *tweet = self.tweets[indexPath.row];
         DetailsViewController *detailsViewController = [segue destinationViewController];
-
-        NSLog(@"%ld", indexPath.row);
-        
         detailsViewController.tweet = tweet;
+        detailsViewController.user = self.user;
     }
     else if ([segue.identifier isEqualToString:@"Reply"]) {
         UINavigationController *navigationController = [segue destinationViewController];
@@ -110,10 +119,16 @@
         composeViewController.tweet = sender;
         composeViewController.type = REPLY_TWEET;
         composeViewController.delegate = self;
+        composeViewController.user = self.user;
     }
     else if ([segue.identifier isEqualToString:@"LinkClicked"]) {
         LinkViewController *linkViewController = [segue destinationViewController];
         linkViewController.link = sender;
+    }
+    else if ([segue.identifier isEqualToString:@"OtherUser"]) {
+        NSLog(@"Got here");
+        OtherUserViewController *otherUserViewController = [segue destinationViewController];
+        otherUserViewController.user = sender;
     }
 }
 
@@ -127,6 +142,11 @@
 
 - (void)linkClicked:(NSURL *)url {
     [self performSegueWithIdentifier:@"LinkClicked" sender:url];
+}
+
+- (void)didTapProfile:(User *)user {
+    NSLog(@"going to segue");
+    [self performSegueWithIdentifier:@"OtherUser" sender:user];
 }
 
 - (IBAction)didTapLogout:(id)sender {

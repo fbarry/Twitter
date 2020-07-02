@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Tweet.h"
+#import "User.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,6 +26,7 @@ typedef enum {
 @interface ComposeViewController : UIViewController
 
 @property (nonatomic, weak) id<ComposeViewControllerDelegate> delegate;
+@property (strong, nonatomic) User *user;
 @property (strong, nonatomic) Tweet *tweet;
 @property (nonatomic) ComposeType type;
 

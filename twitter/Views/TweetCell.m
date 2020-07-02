@@ -137,6 +137,15 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(profileTapped:)];
+    [self.profilePicture addGestureRecognizer:profileTapGestureRecognizer];
+    [self.profilePicture setUserInteractionEnabled:YES];
+}
+
+- (void)profileTapped:(UITapGestureRecognizer *)sender {
+    NSLog(@"registered tap");
+    [self.delegate didTapProfile:self.tweet.user];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

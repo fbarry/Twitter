@@ -1,20 +1,18 @@
 //
-//  DetailsViewController.h
+//  ProfileViewController.h
 //  twitter
 //
-//  Created by Fiona Barry on 6/30/20.
+//  Created by Fiona Barry on 7/2/20.
 //  Copyright © 2020 Emerson Malca. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "Tweet.h"
 #import "User.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DetailsViewController : UIViewController
+@interface ProfileViewController : UIViewController
 
-@property (strong, nonatomic) Tweet *tweet;
 @property (strong, nonatomic) User *user;
 
 @end

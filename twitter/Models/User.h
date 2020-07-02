@@ -17,6 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *screenName;
 @property (nonatomic) BOOL isVerified;
 @property (strong, nonatomic) NSURL *profileImageURL;
+@property (strong, nonatomic) NSURL *bannerURL;
+@property (strong, nonatomic) NSString *descriptionText;
+@property (nonatomic) int numTweets;
+@property (nonatomic) int numFollowing;
+@property (nonatomic) int numFollowers;
+
 
 // MARK: Methods
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;

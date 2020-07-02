@@ -10,7 +10,7 @@
 #import "APIManager.h"
 #import "UIImageView+AFNetworking.h"
 
-@interface ComposeViewController ()
+@interface ComposeViewController () <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
@@ -24,6 +24,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.textView.delegate = self;
+    
+    if (self.user.profileImageURL) {
+        [self.profileImage setImageWithURL:self.user.profileImageURL];
+    }
+    
     if (self.type == REPLY_TWEET) {
         self.replyToLabel.text = [NSString stringWithFormat:@"Replying to @%@", self.tweet.user.screenName];
         self.textView.text = [NSString stringWithFormat:@"@%@ ", self.tweet.user.screenName];
@@ -31,6 +37,16 @@
     else {
         self.replyToLabel.text = nil;
     }
+    
+    self.charCount.text = [NSString stringWithFormat:@"%ld/280", self.textView.text.length];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+
+    int characterLimit = 280;
+    NSString *newText = [self.textView.text stringByReplacingCharactersInRange:range withString:text];
+    self.charCount.text = [NSString stringWithFormat:@"%ld/280", newText.length];
+    return newText.length < characterLimit;
 }
 
 - (IBAction)closeButton:(id)sender {

@@ -17,6 +17,11 @@
         self.screenName = dictionary[@"screen_name"];
         self.isVerified = [dictionary[@"verified"] boolValue];
         self.profileImageURL = [NSURL URLWithString:dictionary[@"profile_image_url_https"]];
+        self.bannerURL = [NSURL URLWithString:dictionary[@"profile_banner_url"]];
+        self.descriptionText = dictionary[@"description"];
+        self.numTweets = [dictionary[@"statuses_count"] intValue];
+        self.numFollowers = [dictionary[@"followers_count"] intValue];
+        self.numFollowing = [dictionary[@"friends_count"] intValue];
     }
     return self;
 }

@@ -16,6 +16,7 @@
 #import "ComposeViewController.h"
 #import "User.h"
 #import "LinkViewController.h"
+#import "OtherUserViewController.h"
 
 @interface DetailsViewController () <ButtonViewProtocol, TTTAttributedLabelDelegate>
 
@@ -161,16 +162,25 @@
     [self performSegueWithIdentifier:@"Reply" sender:self.tweet];
 }
 
+- (IBAction)didTapProfile:(id)sender {
+    [self performSegueWithIdentifier:@"OtherUser" sender:self];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"Reply"]) {
         UINavigationController *navigationController = [segue destinationViewController];
         ComposeViewController *composeViewController = (ComposeViewController *)navigationController.topViewController;
         composeViewController.tweet = sender;
         composeViewController.type = REPLY_TWEET;
+        composeViewController.user = self.user;
     }
-    if ([segue.identifier isEqualToString:@"LinkClicked"]) {
+    else if ([segue.identifier isEqualToString:@"LinkClicked"]) {
         LinkViewController *linkViewController = [segue destinationViewController];
         linkViewController.link = sender;
+    }
+    else if ([segue.identifier isEqualToString:@"OtherUser"]) {
+        OtherUserViewController *otherUserViewController = [segue destinationViewController];
+        otherUserViewController.user = self.user;
     }
 }
 
