@@ -49,6 +49,22 @@ static NSString * const consumerSecret = @"";
     return self;
 }
 
+- (void)getMentionsWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
+    
+    // Create a GET Request
+    [self GET:@"1.1/statuses/mentions_timeline.json"
+        parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+            // Success
+            NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
+            completion(tweets, nil);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            // There was a problem
+            NSLog(@"error getting mentions");
+            completion(nil, error);
+        }];
+}
+
+
 - (void)getCurrentUser:(void(^)(User *user, NSError *error))completion {
     
     [self GET:@"1.1/account/verify_credentials.json"

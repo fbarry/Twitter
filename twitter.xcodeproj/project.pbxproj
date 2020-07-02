@@ -28,6 +28,7 @@
 		8CF24C6724ADAE6B001E870D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF24C6624ADAE6B001E870D /* ProfileViewController.m */; };
 		8CF24C6A24AE2BDB001E870D /* OtherUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF24C6924AE2BDB001E870D /* OtherUserViewController.m */; };
 		8CF24C6F24AE62FA001E870D /* InfiniteScrollActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF24C6E24AE62FA001E870D /* InfiniteScrollActivityIndicator.m */; };
+		8CF24C7524AE94F1001E870D /* MentionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF24C7424AE94F1001E870D /* MentionsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,8 @@
 		8CF24C6924AE2BDB001E870D /* OtherUserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OtherUserViewController.m; sourceTree = "<group>"; };
 		8CF24C6D24AE62FA001E870D /* InfiniteScrollActivityIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfiniteScrollActivityIndicator.h; sourceTree = "<group>"; };
 		8CF24C6E24AE62FA001E870D /* InfiniteScrollActivityIndicator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfiniteScrollActivityIndicator.m; sourceTree = "<group>"; };
+		8CF24C7324AE94F1001E870D /* MentionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MentionsViewController.h; sourceTree = "<group>"; };
+		8CF24C7424AE94F1001E870D /* MentionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MentionsViewController.m; sourceTree = "<group>"; };
 		C58ADBDFEDA94D602E91E0C1 /* Pods_twitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_twitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -182,6 +185,8 @@
 				8CF24C6624ADAE6B001E870D /* ProfileViewController.m */,
 				8CF24C6824AE2BDB001E870D /* OtherUserViewController.h */,
 				8CF24C6924AE2BDB001E870D /* OtherUserViewController.m */,
+				8CF24C7324AE94F1001E870D /* MentionsViewController.h */,
+				8CF24C7424AE94F1001E870D /* MentionsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -307,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CF24C4124AAA4AA001E870D /* TweetCell.m in Sources */,
+				8CF24C7524AE94F1001E870D /* MentionsViewController.m in Sources */,
 				8CF24C6F24AE62FA001E870D /* InfiniteScrollActivityIndicator.m in Sources */,
 				8CF24C6124AD3B22001E870D /* LinkViewController.m in Sources */,
 				6AD278F320BCA6020085BC29 /* BDBOAuth1SessionManager+SFAuthenticationSession.m in Sources */,
