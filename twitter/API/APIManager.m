@@ -11,7 +11,7 @@
 #import "User.h"
 
 static NSString * const baseURLString = @"https://api.twitter.com";
-static NSString * const consumerKey = @"sWx1rlX88EasJ79kyMXVlJaHg";
+static NSString * const consumerKey = @"owBGbwzePzCtFOetk1zjdB0CH";
 static NSString * const consumerSecret = @"";
 
 @interface APIManager()
@@ -62,6 +62,24 @@ static NSString * const consumerSecret = @"";
     }];
 }
 
+- (void)updateHomeTimelineAfter:(Tweet *)tweet withCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
+    
+    int idNum = [tweet.idStr intValue]-1;
+    NSString *lookupValue = [NSString stringWithFormat:@"%d", idNum];
+    NSDictionary *parameters = @{@"max_id": lookupValue};
+    
+    // Create a GET Request
+    [self GET:@"1.1/statuses/home_timeline.json"
+        parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+            // Success
+            NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
+            completion(tweets, nil);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            // There was a problem
+            completion(nil, error);
+        }];
+}
+
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
     
     // Create a GET Request
@@ -72,6 +90,7 @@ static NSString * const consumerSecret = @"";
             completion(tweets, nil);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             // There was a problem
+            NSLog(@"error getting timeline");
             completion(nil, error);
         }];
 }

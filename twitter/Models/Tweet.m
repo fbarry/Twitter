@@ -30,7 +30,22 @@
         self.favorited = [dictionary[@"favorited"] boolValue];
         self.retweetCount = [dictionary[@"retweet_count"] intValue];
         self.retweeted = [dictionary[@"retweeted"] boolValue];
-        
+                
+        if (dictionary[@"entities"]) {
+            NSDictionary *entities = dictionary[@"entities"];
+            if (entities[@"media"]) {
+                NSArray *media = entities[@"media"];
+                for (int i = 0; i < media.count; i++) {
+                    if (media[i][@"media_url_https"]) {
+                        NSLog(@"%@", self.text);
+                        NSLog(@"%@", media[i][@"media_url_https"]);
+                        self.postImage = [NSURL URLWithString:media[i][@"media_url_https"]];
+                        break;
+                    }
+                }
+            }
+        }
+                
         // TODO: initialize user
         self.user = [[User alloc] initWithDictionary:dictionary[@"user"]];
                 

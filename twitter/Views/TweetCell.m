@@ -25,9 +25,28 @@
     self.favorButtonView.type = FAVOR;
     
     self.tweet = tweet;
+    if (tweet.retweetedByUser) {
+        self.retweetedByLabel.text = [NSString stringWithFormat:@"Retweeted by @%@", tweet.retweetedByUser.screenName];
+    }
+    else {
+        [self.retweetedImageView setHidden:YES];
+        self.retweetedByLabel.text = nil;
+    }
+    
+    if (tweet.postImage) {
+        [self.postImage setImageWithURL:tweet.postImage];
+    }
+    else {
+        [self.postImage removeFromSuperview];
+    }
+    
     [self.profilePicture setImageWithURL:tweet.user.profileImageURL];
     self.nameLabel.text = tweet.user.name;
-    [self.verifiedIcon setHidden:!tweet.user.isVerified];
+    
+    if (!tweet.user.isVerified) {
+        [self.verifiedIcon setHidden:YES];
+    }
+    
     self.usernameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
     
     self.contentLabel.delegate = self;

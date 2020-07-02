@@ -33,6 +33,8 @@
 @property (weak, nonatomic) IBOutlet ButtonView *retweetButtonView;
 @property (weak, nonatomic) IBOutlet ButtonView *favorButtonView;
 @property (weak, nonatomic) IBOutlet ButtonView *messageButtonView;
+@property (weak, nonatomic) IBOutlet UIImageView *postImage;
+@property (strong, nonatomic) NSArray *months;
 
 @end
 
@@ -40,6 +42,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.months = @[@"Jan", @"Feb", @"Mar", @"Apr", @"May", @"Jun", @"Jul", @"Aug", @"Sep", @"Oct", @"Nov", @"Dec"];
     
     self.replyButtonView.delegate = self;
     self.favorButtonView.delegate = self;
@@ -55,7 +59,8 @@
     self.contentLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
     [self.contentLabel setText:self.tweet.text];
     
-    self.dateLabel.text = [NSString stringWithFormat:@"%ld %ld %ld", self.tweet.createdDate.day, self.tweet.createdDate.month, self.tweet.createdDate.year];
+    self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", self.tweet.createdDate.hour, self.tweet.createdDate.minute];
+    self.dateLabel.text = [NSString stringWithFormat:@"%ld %@ %ld", self.tweet.createdDate.day, self.months[self.tweet.createdDate.month-1], self.tweet.createdDate.year];
                
     self.retweetCommentCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
     self.favorCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
@@ -72,7 +77,13 @@
     
     [self.replyButtonView.buttonIcon setImage:[UIImage imageNamed:@"reply-icon.png"] forState:UIControlStateNormal];
     [self.messageButtonView.buttonIcon setImage:[UIImage imageNamed:@"message-icon.png"] forState:UIControlStateNormal];
-    
+
+    if (self.tweet.postImage) {
+        [self.postImage setImageWithURL:self.tweet.postImage];
+    }
+    else {
+        [self.postImage removeFromSuperview];
+    }
     if (self.tweet.retweeted) {
         [self.retweetButtonView.buttonIcon setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateNormal];
     }

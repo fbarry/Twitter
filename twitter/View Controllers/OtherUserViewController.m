@@ -19,9 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *verifiedIcon;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *descriptionLabel;
-@property (weak, nonatomic) IBOutlet UILabel *tweetCount;
-@property (weak, nonatomic) IBOutlet UILabel *followingCount;
-@property (weak, nonatomic) IBOutlet UILabel *followerCount;
+@property (weak, nonatomic) IBOutlet UILabel *statsLabel;
 
 @end
 
@@ -46,9 +44,7 @@
     self.descriptionLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
     [self.descriptionLabel setText:self.user.descriptionText];
        
-    self.tweetCount.text = [NSString stringWithFormat:@"%d", self.user.numTweets];
-    self.followingCount.text = [NSString stringWithFormat:@"%d", self.user.numFollowing];
-    self.followerCount.text = [NSString stringWithFormat:@"%d", self.user.numFollowers];
+    self.statsLabel.text = [NSString stringWithFormat:@"%d Tweets  %d Following  %d Followers", self.user.numTweets, self.user.numFollowing, self.user.numFollowers];
 }
 
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {

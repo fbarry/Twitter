@@ -16,8 +16,9 @@
 #import "DetailsViewController.h"
 #import "LinkViewController.h"
 #import "OtherUserViewController.h"
+#import "InfiniteScrollActivityIndicator.h"
 
-@interface TimelineViewController () <TweetProtocol, ComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface TimelineViewController () <UIScrollViewDelegate, TweetProtocol, ComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *tweets;
@@ -25,6 +26,9 @@
 @end
 
 @implementation TimelineViewController
+
+BOOL isMoreDataLoading = false;
+InfiniteScrollActivityIndicator* loadingMoreView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,17 +41,25 @@
     
     [self getUser];
     [self getTimeline];
-    
+
     self.tableView.refreshControl = [[UIRefreshControl alloc] init];
     [self.tableView.refreshControl addTarget:self action:@selector(getTimeline) forControlEvents:UIControlEventValueChanged];
     self.tableView.refreshControl.tintColor = [UIColor colorWithRed:21.0f/255 green:180.0f/255  blue:1 alpha:1];
+    
+    CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityIndicator.defaultHeight);
+    loadingMoreView = [[InfiniteScrollActivityIndicator alloc] initWithFrame:frame];
+    loadingMoreView.hidden = true;
+    [self.tableView addSubview:loadingMoreView];
+    
+    UIEdgeInsets insets = self.tableView.contentInset;
+    insets.bottom += InfiniteScrollActivityIndicator.defaultHeight;
+    self.tableView.contentInset = insets;
 }
 
 - (void)getUser {
     [[APIManager shared] getCurrentUser:^(User *user, NSError *error) {
         if (user) {
             self.user = user;
-            NSLog(@"succes %@", user.name);
         } else {
             NSLog(@"😫😫😫 Error getting user: %@", error.localizedDescription);
         }
@@ -69,6 +81,35 @@
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
         [self.tableView.refreshControl endRefreshing];
+    }];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (!isMoreDataLoading) {
+        int scrollViewContentHeight = self.tableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
+        
+        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+            isMoreDataLoading = true;
+            CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityIndicator.defaultHeight);
+            loadingMoreView.frame = frame;
+            [loadingMoreView startAnimating];
+            [self loadMoreData];
+        }
+        
+    }
+}
+
+-(void)loadMoreData{
+    [[APIManager shared] updateHomeTimelineAfter:self.tweets[self.tweets.count-1] withCompletion:^(NSArray *tweets, NSError *error) {
+        if (tweets) {
+            isMoreDataLoading = false;
+            [loadingMoreView stopAnimating];
+            [self.tweets addObjectsFromArray:tweets];
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"😫😫😫 Error updating home timeline: %@", error.localizedDescription);
+        }
     }];
 }
 

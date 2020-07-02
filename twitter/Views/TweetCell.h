@@ -34,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet ButtonView *retweetButtonView;
 @property (weak, nonatomic) IBOutlet ButtonView *favorButtonView;
 @property (weak, nonatomic) IBOutlet ButtonView *messageButtonView;
+@property (weak, nonatomic) IBOutlet UIImageView *postImage;
+@property (weak, nonatomic) IBOutlet UILabel *retweetedByLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *retweetedImageView;
 
 @property (strong, nonatomic) Tweet *tweet;
 
