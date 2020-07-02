@@ -59,7 +59,7 @@
         [[APIManager shared] postStatusWithText:self.textView.text completion:^(Tweet *tweet, NSError *error) {
             if (tweet) {
                 NSLog(@"tweet success!");
-                [self.delegate didTweet];
+                [self.delegate didTweet:tweet];
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
                 NSLog(@"😫😫😫 Error posting: %@", error.localizedDescription);
@@ -75,7 +75,7 @@
         [[APIManager shared] postReplyToTweet:self.tweet withText:self.textView.text completion:^(Tweet *tweet, NSError *error) {
             if (tweet) {
                 NSLog(@"reply success!");
-                [self.delegate didTweet];
+                [self.delegate didTweet:tweet];
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
                 NSLog(@"😫😫😫 Error posting: %@", error.localizedDescription);

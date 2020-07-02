@@ -43,6 +43,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(profileTapped:)];
+       [self.profilePicture addGestureRecognizer:profileTapGestureRecognizer];
+       [self.profilePicture setUserInteractionEnabled:YES];
+    
     self.months = @[@"Jan", @"Feb", @"Mar", @"Apr", @"May", @"Jun", @"Jul", @"Aug", @"Sep", @"Oct", @"Nov", @"Dec"];
     
     self.replyButtonView.delegate = self;
@@ -170,10 +174,11 @@
 }
 
 - (void)didTapReply {
-    [self performSegueWithIdentifier:@"Reply" sender:self.tweet];
+    NSLog(@"didTapReply");
+    [self performSegueWithIdentifier:@"Reply" sender:self];
 }
 
-- (IBAction)didTapProfile:(id)sender {
+- (void)profileTapped:(UITapGestureRecognizer *)sender  {
     [self performSegueWithIdentifier:@"OtherUser" sender:self];
 }
 
@@ -181,7 +186,7 @@
     if ([segue.identifier isEqualToString:@"Reply"]) {
         UINavigationController *navigationController = [segue destinationViewController];
         ComposeViewController *composeViewController = (ComposeViewController *)navigationController.topViewController;
-        composeViewController.tweet = sender;
+        composeViewController.tweet = self.tweet;
         composeViewController.type = REPLY_TWEET;
         composeViewController.user = self.user;
     }
@@ -191,7 +196,7 @@
     }
     else if ([segue.identifier isEqualToString:@"OtherUser"]) {
         OtherUserViewController *otherUserViewController = [segue destinationViewController];
-        otherUserViewController.user = self.user;
+        otherUserViewController.user = self.tweet.user;
     }
 }
 

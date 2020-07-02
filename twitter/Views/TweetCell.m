@@ -69,9 +69,17 @@
         self.retweetButtonView.countLabel.textColor = [UIColor greenColor];
         [self.retweetButtonView.buttonIcon setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateNormal];
     }
+    else {
+        self.retweetButtonView.countLabel.textColor = [UIColor darkGrayColor];
+        [self.retweetButtonView.buttonIcon setImage:[UIImage imageNamed:@"retweet-icon.png"] forState:UIControlStateNormal];
+    }
     if (tweet.favorited) {
         self.favorButtonView.countLabel.textColor = [UIColor redColor];
         [self.favorButtonView.buttonIcon setImage:[UIImage imageNamed:@"favor-icon-red.png"] forState:UIControlStateNormal];
+    }
+    else {
+        self.favorButtonView.countLabel.textColor = [UIColor darkGrayColor];
+        [self.favorButtonView.buttonIcon setImage:[UIImage imageNamed:@"favor-icon.png"] forState:UIControlStateNormal];
     }
 }
 

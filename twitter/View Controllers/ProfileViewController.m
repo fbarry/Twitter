@@ -11,6 +11,8 @@
 #import "UIImageView+AFNetworking.h"
 #import "TTTAttributedLabel.h"
 #import "LinkViewController.h"
+#import "LoginViewController.h"
+#import "AppDelegate.h"
 
 @interface ProfileViewController () <TTTAttributedLabelDelegate>
 
@@ -68,6 +70,15 @@
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
     NSLog(@"DidSelectLink: %@", url);
     [self performSegueWithIdentifier:@"LinkClicked" sender:url];
+}
+
+- (IBAction)didTapLogout:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    appDelegate.window.rootViewController = loginViewController;
+    [[APIManager shared] logout];
 }
 
 #pragma mark - Navigation

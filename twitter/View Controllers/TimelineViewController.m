@@ -17,11 +17,13 @@
 #import "LinkViewController.h"
 #import "OtherUserViewController.h"
 #import "InfiniteScrollActivityIndicator.h"
+#import "ProfileViewController.h"
 
 @interface TimelineViewController () <UIScrollViewDelegate, TweetProtocol, ComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *tweets;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *barProfile;
 
 @end
 
@@ -167,14 +169,14 @@ InfiniteScrollActivityIndicator* loadingMoreView;
         linkViewController.link = sender;
     }
     else if ([segue.identifier isEqualToString:@"OtherUser"]) {
-        NSLog(@"Got here");
         OtherUserViewController *otherUserViewController = [segue destinationViewController];
         otherUserViewController.user = sender;
     }
 }
 
-- (void)didTweet {
-    [self getTimeline];
+- (void)didTweet:(Tweet *)tweet {
+    [self.tweets insertObject:tweet atIndex:0];
+    [self.tableView reloadData];
 }
 
 - (void)replyClicked:(Tweet *)tweet {
@@ -190,13 +192,9 @@ InfiniteScrollActivityIndicator* loadingMoreView;
     [self performSegueWithIdentifier:@"OtherUser" sender:user];
 }
 
-- (IBAction)didTapLogout:(id)sender {
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    appDelegate.window.rootViewController = loginViewController;
-    [[APIManager shared] logout];
+- (IBAction)didTapBarProfile:(id)sender {
+    [self performSegueWithIdentifier:@"SelfProfile" sender:self];
 }
+
 
 @end

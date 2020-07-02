@@ -253,9 +253,9 @@
                         <viewLayoutGuide key="safeArea" id="ugE-Ul-H9I"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="MOc-fV-EZE">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Uiv-x4-cyq">
+                        <barButtonItem key="leftBarButtonItem" image="profile-Icon" id="E97-vY-3Va">
                             <connections>
-                                <action selector="didTapLogout:" destination="Lbl-k5-U4i" id="5Wu-fc-xpI"/>
+                                <action selector="didTapBarProfile:" destination="Lbl-k5-U4i" id="5RG-a2-e6K"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="edit-icon" id="WLy-u9-Ic1">
@@ -265,10 +265,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="barProfile" destination="E97-vY-3Va" id="Ldt-v5-2wN"/>
                         <outlet property="tableView" destination="zx0-di-Xmc" id="Bo6-ls-3SG"/>
                         <segue destination="NXi-Z6-w2W" kind="presentation" identifier="LinkClicked" id="ug4-SU-B92"/>
                         <segue destination="4zZ-g0-QLV" kind="presentation" identifier="Reply" id="Kz0-oC-GkL"/>
                         <segue destination="pq3-qE-iK4" kind="show" identifier="OtherUser" id="ijk-cT-Bqw"/>
+                        <segue destination="u6Y-IC-BlK" kind="show" identifier="SelfProfile" id="ndc-Yc-dQq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQh-hN-GQg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -449,7 +451,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IeE-vT-2Eg"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Profile" id="Nye-eg-hQt"/>
+                    <navigationItem key="navigationItem" title="Profile" id="Nye-eg-hQt">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="GT6-f5-iQy">
+                            <connections>
+                                <action selector="didTapLogout:" destination="BpP-wR-S1J" id="qu4-Sd-IXq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="descriptionLabel" destination="dmx-3L-TP3" id="Kwk-El-PuA"/>
                         <outlet property="headerImage" destination="XAO-g3-uCP" id="bPx-sA-Iox"/>
@@ -505,9 +513,6 @@
                                             <constraint firstAttribute="width" constant="50" id="hXw-1P-ZxI"/>
                                             <constraint firstAttribute="height" constant="50" id="xQg-i6-jy0"/>
                                         </constraints>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="pLG-dB-bqh" appends="YES" id="aLt-Xc-ETu"/>
-                                        </connections>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Last" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDQ-KC-QZ6" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="66" y="8" width="88" height="20"/>
@@ -701,11 +706,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0kv-4Q-BtZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="pLG-dB-bqh">
-                    <connections>
-                        <action selector="didTapProfile:" destination="vH6-NV-lvu" id="vFl-5R-nSO"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1339.1304347826087" y="2698.6607142857142"/>
         </scene>
@@ -838,6 +838,7 @@
             <objects>
                 <navigationController id="u6Y-IC-BlK" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="profile-Icon" id="NCl-ud-AV2"/>
+                    <navigationItem key="navigationItem" id="uRI-xN-Dkf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2Sh-7x-30r">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -872,9 +873,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Nw0-5I-6s3"/>
-        <segue reference="g6I-4B-f70"/>
-        <segue reference="qt1-Jy-zrE"/>
+        <segue reference="j3u-u5-WJu"/>
+        <segue reference="ndc-Yc-dQq"/>
+        <segue reference="Uun-Aq-KNe"/>
+        <segue reference="ijk-cT-Bqw"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="TwitterLogoBlue" width="200" height="200"/>

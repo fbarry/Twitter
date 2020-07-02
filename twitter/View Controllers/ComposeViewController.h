@@ -19,7 +19,7 @@ typedef enum {
 
 @protocol ComposeViewControllerDelegate
 
-- (void)didTweet;
+- (void)didTweet:(Tweet *)tweet;
 
 @end
 
