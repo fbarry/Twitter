@@ -12,14 +12,18 @@
 #import "DateTools.h"
 #import "APIManager.h"
 #import "ButtonView.h"
+#import "TTTAttributedLabel.h"
+#import "ReplyViewController.h"
+#import "User.h"
+#import "LinkViewController.h"
 
-@interface DetailsViewController () <ButtonViewProtocol>
+@interface DetailsViewController () <ButtonViewProtocol, TTTAttributedLabelDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *verifiedIcon;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *retweetCommentCountLabel;
@@ -45,7 +49,10 @@
     self.nameLabel.text = self.tweet.user.name;
     [self.verifiedIcon setHidden:!self.tweet.user.isVerified];
     self.usernameLabel.text = [NSString stringWithFormat:@"@%@", self.tweet.user.screenName];
-    self.contentLabel.text = self.tweet.text;
+    
+    self.contentLabel.delegate = self;
+    self.contentLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    [self.contentLabel setText:self.tweet.text];
     
     self.dateLabel.text = [NSString stringWithFormat:@"%ld %ld %ld", self.tweet.createdDate.day, self.tweet.createdDate.month, self.tweet.createdDate.year];
                
@@ -77,6 +84,11 @@
     else {
         [self.favorButtonView.buttonIcon setImage:[UIImage imageNamed:@"favor-icon.png"] forState:UIControlStateNormal];
     }
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    NSLog(@"DidSelectLink: %@", url);
+    [self performSegueWithIdentifier:@"LinkClicked" sender:url];
 }
 
 - (void)didTapRetweet {
@@ -145,16 +157,20 @@
     }
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)didTapReply {
+    [self performSegueWithIdentifier:@"Reply" sender:self];
 }
-*/
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"Reply"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ReplyViewController *replyViewController = (ReplyViewController *)navigationController.topViewController;
+        replyViewController.tweet = self.tweet;
+    }
+    if ([segue.identifier isEqualToString:@"LinkClicked"]) {
+        LinkViewController *linkViewController = [segue destinationViewController];
+        linkViewController.link = sender;
+    }
+}
 
 @end

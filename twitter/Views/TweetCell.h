@@ -9,17 +9,26 @@
 #import <UIKit/UIKit.h>
 #import "Tweet.h"
 #import "ButtonView.h"
+#import "TTTAttributedLabel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TweetCell : UITableViewCell <ButtonViewProtocol>
+@protocol TweetProtocol <NSObject>
 
+- (void)replyClicked:(Tweet *)tweet;
+- (void)linkClicked:(NSURL *)url;
+
+@end
+
+@interface TweetCell : UITableViewCell <ButtonViewProtocol, TTTAttributedLabelDelegate>
+
+@property (nonatomic, weak) id <TweetProtocol> delegate;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *verifiedIcon;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *contentLabel;
 @property (weak, nonatomic) IBOutlet ButtonView *replyButtonView;
 @property (weak, nonatomic) IBOutlet ButtonView *retweetButtonView;
 @property (weak, nonatomic) IBOutlet ButtonView *favorButtonView;

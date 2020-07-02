@@ -21,6 +21,7 @@ typedef enum {
 
 - (void)didTapRetweet;
 - (void)didTapFavor;
+- (void)didTapReply;
 
 @end
 

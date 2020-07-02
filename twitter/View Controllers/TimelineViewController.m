@@ -14,8 +14,10 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "DetailsViewController.h"
+#import "ReplyViewController.h"
+#import "LinkViewController.h"
 
-@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface TimelineViewController () <TweetProtocol, ComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *tweets;
@@ -67,7 +69,8 @@
     
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     Tweet *tweet = self.tweets[indexPath.row];
-       
+    
+    cell.delegate = self;
     [cell refreshCellWithTweet:tweet];
     
     return cell;
@@ -101,10 +104,27 @@
         
         detailsViewController.tweet = tweet;
     }
+    else if ([segue.identifier isEqualToString:@"Reply"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ReplyViewController *replyViewController = (ReplyViewController *)navigationController.topViewController;
+        replyViewController.tweet = sender;
+    }
+    else if ([segue.identifier isEqualToString:@"LinkClicked"]) {
+        LinkViewController *linkViewController = [segue destinationViewController];
+        linkViewController.link = sender;
+    }
 }
 
 - (void)didTweet:(nonnull Tweet *)tweet {
     [self.tableView reloadData];
+}
+
+- (void)replyClicked:(Tweet *)tweet {
+    [self performSegueWithIdentifier:@"Reply" sender:tweet];
+}
+
+- (void)linkClicked:(NSURL *)url {
+    [self performSegueWithIdentifier:@"LinkClicked" sender:url];
 }
 
 - (IBAction)didTapLogout:(id)sender {

@@ -14,7 +14,6 @@
 @implementation TweetCell
 
 - (void)refreshCellWithTweet:(Tweet *)tweet {
-    
     self.replyButtonView.delegate = self;
     self.retweetButtonView.delegate = self;
     self.messageButtonView.delegate = self;
@@ -30,7 +29,11 @@
     self.nameLabel.text = tweet.user.name;
     [self.verifiedIcon setHidden:!tweet.user.isVerified];
     self.usernameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
-    self.contentLabel.text = tweet.text;
+    
+    self.contentLabel.delegate = self;
+    self.contentLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    [self.contentLabel setText:tweet.text];
+    
     self.dateLabel.text = [NSDate shortTimeAgoSinceDate:self.tweet.createdDate];
                           
     self.replyButtonView.countLabel.text = nil;
@@ -51,6 +54,11 @@
         self.favorButtonView.countLabel.textColor = [UIColor redColor];
         [self.favorButtonView.buttonIcon setImage:[UIImage imageNamed:@"favor-icon-red.png"] forState:UIControlStateNormal];
     }
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    NSLog(@"DidSelectLink: %@", url);
+    [self.delegate linkClicked:url];
 }
 
 - (void)didTapRetweet {
@@ -119,6 +127,11 @@
             }
         }];
     }
+}
+
+- (void)didTapReply {
+    NSLog(@"didTapReply");
+    [self.delegate replyClicked:self.tweet];
 }
 
 - (void)awakeFromNib {

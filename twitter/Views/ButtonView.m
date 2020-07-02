@@ -46,6 +46,9 @@
         case FAVOR:
             [self.delegate didTapFavor];
             break;
+        case REPLY:
+            [self.delegate didTapReply];
+            break;
         default:
             NSLog(@"NONE");
     }
