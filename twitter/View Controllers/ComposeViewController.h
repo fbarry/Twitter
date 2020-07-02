@@ -11,15 +11,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef enum {
+    REPLY_TWEET,
+    STATUS_TWEET
+} ComposeType;
+
 @protocol ComposeViewControllerDelegate
 
-- (void)didTweet:(Tweet *)tweet;
+- (void)didTweet;
 
 @end
 
 @interface ComposeViewController : UIViewController
 
 @property (nonatomic, weak) id<ComposeViewControllerDelegate> delegate;
+@property (strong, nonatomic) Tweet *tweet;
+@property (nonatomic) ComposeType type;
 
 @end
 

@@ -24,6 +24,7 @@
     [super viewDidLoad];
     
     self.replyToLabel.text = [NSString stringWithFormat:@"Replying to @%@", self.tweet.user.screenName];
+    self.textView.text = [NSString stringWithFormat:@"@%@ ", self.tweet.user.screenName];
     
     // Do any additional setup after loading the view.
 }
@@ -34,7 +35,7 @@
 
 - (IBAction)replyButton:(id)sender {
     
-    NSString *atUser = [NSString stringWithFormat:@"@%@", self.tweet.user.screenName];
+    NSString *atUser = [NSString stringWithFormat:@"@%@ ", self.tweet.user.screenName];
     if (![self.textView.text containsString:atUser]) {
         self.textView.text = [atUser stringByAppendingString:self.textView.text];
     }
@@ -42,6 +43,7 @@
     [[APIManager shared] postReplyToTweet:self.tweet withText:self.textView.text completion:^(Tweet *tweet, NSError *error) {
         if (tweet) {
             NSLog(@"reply success!");
+            [self.delegate didReply];
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
             NSLog(@"😫😫😫 Error posting: %@", error.localizedDescription);

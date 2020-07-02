@@ -11,8 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol ReplyProtocol <NSObject>
+
+- (void)didReply;
+
+@end
+
 @interface ReplyViewController : UIViewController
 
+@property (nonatomic) id <ReplyProtocol> delegate;
 @property (strong, nonatomic) Tweet *tweet;
 
 @end

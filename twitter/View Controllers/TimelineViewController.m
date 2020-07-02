@@ -14,7 +14,6 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "DetailsViewController.h"
-#import "ReplyViewController.h"
 #import "LinkViewController.h"
 
 @interface TimelineViewController () <TweetProtocol, ComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -92,6 +91,7 @@
         UINavigationController *navigationController = [segue destinationViewController];
         ComposeViewController *composeController = (ComposeViewController *)navigationController.topViewController;
         composeController.delegate = self;
+        composeController.type = STATUS_TWEET;
     }
     
     else if ([segue.identifier isEqualToString:@"Details"]) {
@@ -106,8 +106,10 @@
     }
     else if ([segue.identifier isEqualToString:@"Reply"]) {
         UINavigationController *navigationController = [segue destinationViewController];
-        ReplyViewController *replyViewController = (ReplyViewController *)navigationController.topViewController;
-        replyViewController.tweet = sender;
+        ComposeViewController *composeViewController = (ComposeViewController *)navigationController.topViewController;
+        composeViewController.tweet = sender;
+        composeViewController.type = REPLY_TWEET;
+        composeViewController.delegate = self;
     }
     else if ([segue.identifier isEqualToString:@"LinkClicked"]) {
         LinkViewController *linkViewController = [segue destinationViewController];
@@ -115,7 +117,7 @@
     }
 }
 
-- (void)didTweet:(nonnull Tweet *)tweet {
+- (void)didTweet {
     [self.tableView reloadData];
 }
 

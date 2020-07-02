@@ -13,7 +13,7 @@
 #import "APIManager.h"
 #import "ButtonView.h"
 #import "TTTAttributedLabel.h"
-#import "ReplyViewController.h"
+#import "ComposeViewController.h"
 #import "User.h"
 #import "LinkViewController.h"
 
@@ -158,14 +158,15 @@
 }
 
 - (void)didTapReply {
-    [self performSegueWithIdentifier:@"Reply" sender:self];
+    [self performSegueWithIdentifier:@"Reply" sender:self.tweet];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"Reply"]) {
         UINavigationController *navigationController = [segue destinationViewController];
-        ReplyViewController *replyViewController = (ReplyViewController *)navigationController.topViewController;
-        replyViewController.tweet = self.tweet;
+        ComposeViewController *composeViewController = (ComposeViewController *)navigationController.topViewController;
+        composeViewController.tweet = sender;
+        composeViewController.type = REPLY_TWEET;
     }
     if ([segue.identifier isEqualToString:@"LinkClicked"]) {
         LinkViewController *linkViewController = [segue destinationViewController];

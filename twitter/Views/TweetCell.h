@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)refreshCellWithTweet:(Tweet *)tweet;
 - (void)didTapRetweet;
 - (void)didTapFavor;
+- (void)didTapReply;
 
 @end
 
