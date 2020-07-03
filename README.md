@@ -46,8 +46,8 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. Completion blocks
+2. Custom subviews
 
 ## Video Walkthrough
 
@@ -66,9 +66,9 @@ Describe any challenges encountered while building the app.
 List an 3rd party libraries, icons, graphics, or other assets you used in your app.
 
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library
-- TTTAtributedLabels
-- BDBOAuth1Manager
-- DateTools
+- [TTTAtributedLabels](https://github.com/TTTAttributedLabel/TTTAttributedLabel)
+- [BDBOAuth1Manager](https://github.com/bdbergeron/BDBOAuth1Manager)
+- [DateTools](https://github.com/MatthewYork/DateTools)
 
 ## License
 
