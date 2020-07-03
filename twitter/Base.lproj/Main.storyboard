@@ -260,7 +260,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="edit-icon" id="WLy-u9-Ic1">
                             <connections>
-                                <segue destination="4zZ-g0-QLV" kind="presentation" identifier="Compose" id="j3u-u5-WJu"/>
+                                <action selector="didTapCompose:" destination="Lbl-k5-U4i" id="nzi-Bt-g0j"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -269,6 +269,7 @@
                         <segue destination="NXi-Z6-w2W" kind="presentation" identifier="LinkClicked" id="ug4-SU-B92"/>
                         <segue destination="4zZ-g0-QLV" kind="presentation" identifier="Reply" id="Kz0-oC-GkL"/>
                         <segue destination="pq3-qE-iK4" kind="show" identifier="OtherUser" id="ijk-cT-Bqw"/>
+                        <segue destination="4zZ-g0-QLV" kind="presentation" identifier="Compose" id="g0d-cb-LQC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQh-hN-GQg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -675,7 +676,7 @@
                     <navigationItem key="navigationItem" id="pFm-Yv-a26">
                         <barButtonItem key="rightBarButtonItem" title="Reply" id="tI3-iO-ifn">
                             <connections>
-                                <segue destination="4zZ-g0-QLV" kind="presentation" identifier="Reply" id="Nw0-5I-6s3"/>
+                                <action selector="replyTabButton:" destination="vH6-NV-lvu" id="pOu-lw-llR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -696,6 +697,7 @@
                         <outlet property="verifiedIcon" destination="3mi-tH-e3k" id="fR0-dt-a8M"/>
                         <segue destination="NXi-Z6-w2W" kind="presentation" identifier="LinkClicked" id="uiT-wY-qzg"/>
                         <segue destination="pq3-qE-iK4" kind="show" identifier="OtherUser" id="qt1-Jy-zrE"/>
+                        <segue destination="4zZ-g0-QLV" kind="presentation" identifier="Reply" id="H6o-V0-Jc9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0kv-4Q-BtZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1084,7 +1086,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="j3u-u5-WJu"/>
+        <segue reference="g0d-cb-LQC"/>
         <segue reference="ug4-SU-B92"/>
         <segue reference="yvR-Jd-n5S"/>
         <segue reference="ijk-cT-Bqw"/>

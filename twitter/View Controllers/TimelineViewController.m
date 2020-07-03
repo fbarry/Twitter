@@ -175,6 +175,10 @@ InfiniteScrollActivityIndicator* loadingMoreView;
     }
 }
 
+- (IBAction)didTapCompose:(id)sender {
+    [self performSegueWithIdentifier:@"Compose" sender:self];
+}
+
 - (void)didTweet:(Tweet *)tweet {
     [self.tweets insertObject:tweet atIndex:0];
     [self.tableView reloadData];

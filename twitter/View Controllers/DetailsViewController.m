@@ -173,6 +173,10 @@
     }
 }
 
+- (IBAction)replyTabButton:(id)sender {
+    [self performSegueWithIdentifier:@"Reply" sender:self];
+}
+
 - (void)didTapReply {
     NSLog(@"didTapReply");
     [self performSegueWithIdentifier:@"Reply" sender:self];
