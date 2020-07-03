@@ -98,7 +98,6 @@ InfiniteScrollActivityIndicator* loadingMoreView;
             [loadingMoreView startAnimating];
             [self loadMoreData];
         }
-        
     }
 }
 
@@ -106,12 +105,14 @@ InfiniteScrollActivityIndicator* loadingMoreView;
     [[APIManager shared] updateHomeTimelineAfter:self.tweets[self.tweets.count-1] withCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
             isMoreDataLoading = false;
-            [loadingMoreView stopAnimating];
             [self.tweets addObjectsFromArray:tweets];
             [self.tableView reloadData];
+            
+            NSLog(@"%ld", self.tweets.count);
         } else {
             NSLog(@"😫😫😫 Error updating home timeline: %@", error.localizedDescription);
         }
+        [loadingMoreView stopAnimating];
     }];
 }
 
@@ -192,8 +193,13 @@ InfiniteScrollActivityIndicator* loadingMoreView;
     [self performSegueWithIdentifier:@"OtherUser" sender:user];
 }
 
-- (IBAction)didTapBarProfile:(id)sender {
-    [self performSegueWithIdentifier:@"SelfProfile" sender:self];
+- (IBAction)didTapLogout:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    appDelegate.window.rootViewController = loginViewController;
+    [[APIManager shared] logout];
 }
 
 

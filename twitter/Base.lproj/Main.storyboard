@@ -46,7 +46,7 @@
                         <viewLayoutGuide key="safeArea" id="osx-NC-afp"/>
                     </view>
                     <connections>
-                        <segue destination="zom-Fz-S6M" kind="show" identifier="loginSegue" id="akb-pr-5zK"/>
+                        <segue destination="zom-Fz-S6M" kind="presentation" identifier="loginSegue" modalPresentationStyle="fullScreen" id="akb-pr-5zK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hKJ-HH-8tn" sceneMemberID="firstResponder"/>
@@ -62,11 +62,11 @@
                         <viewControllerLayoutGuide type="bottom" id="pGj-sa-aq5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qax-2F-Vhk">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zx0-di-Xmc">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="759"/>
+                                <rect key="frame" x="0.0" y="32" width="414" height="781"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="300" id="6tg-mK-DoF" customClass="TweetCell">
@@ -253,9 +253,9 @@
                         <viewLayoutGuide key="safeArea" id="ugE-Ul-H9I"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="MOc-fV-EZE">
-                        <barButtonItem key="leftBarButtonItem" image="profile-Icon" id="E97-vY-3Va">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="E97-vY-3Va">
                             <connections>
-                                <action selector="didTapBarProfile:" destination="Lbl-k5-U4i" id="5RG-a2-e6K"/>
+                                <action selector="didTapLogout:" destination="Lbl-k5-U4i" id="Fpr-PC-c2o"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="edit-icon" id="WLy-u9-Ic1">
@@ -265,12 +265,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="barProfile" destination="E97-vY-3Va" id="Ldt-v5-2wN"/>
                         <outlet property="tableView" destination="zx0-di-Xmc" id="Bo6-ls-3SG"/>
                         <segue destination="NXi-Z6-w2W" kind="presentation" identifier="LinkClicked" id="ug4-SU-B92"/>
                         <segue destination="4zZ-g0-QLV" kind="presentation" identifier="Reply" id="Kz0-oC-GkL"/>
                         <segue destination="pq3-qE-iK4" kind="show" identifier="OtherUser" id="ijk-cT-Bqw"/>
-                        <segue destination="BpP-wR-S1J" kind="show" identifier="SelfProfile" id="5kP-j3-YyP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQh-hN-GQg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -282,50 +280,50 @@
             <objects>
                 <viewController id="pq3-qE-iK4" customClass="OtherUserViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vKG-Bx-7Nb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OC1-ms-aUW">
-                                <rect key="frame" x="0.0" y="56" width="414" height="140"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="140"/>
                                 <color key="backgroundColor" red="0.1431105137" green="0.62390446659999999" blue="0.94905763860000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="140" id="WWK-fL-YIS"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="YyH-yb-pLw">
-                                <rect key="frame" x="16" y="161" width="70" height="70"/>
+                                <rect key="frame" x="16" y="193" width="70" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="G8g-fg-YQP"/>
                                     <constraint firstAttribute="width" constant="70" id="JmH-1U-akM"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Last" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1O-kj-vq1">
-                                <rect key="frame" x="16" y="239" width="108.5" height="30"/>
+                                <rect key="frame" x="16" y="271" width="108.5" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgH-0s-Oj8">
-                                <rect key="frame" x="16" y="277" width="104" height="24"/>
+                                <rect key="frame" x="16" y="309" width="104" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2V-6i-qZe" customClass="TTTAttributedLabel">
-                                <rect key="frame" x="16" y="309" width="100" height="24"/>
+                                <rect key="frame" x="16" y="341" width="100" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="verified-icon" translatesAutoresizingMaskIntoConstraints="NO" id="zz1-Br-YGW">
-                                <rect key="frame" x="132.5" y="241.5" width="25" height="25"/>
+                                <rect key="frame" x="132.5" y="273.5" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="dX2-gV-roL"/>
                                     <constraint firstAttribute="width" constant="25" id="zEe-tn-PbQ"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Tweets 0 Following 0 Followers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XSE-kf-DNw">
-                                <rect key="frame" x="16" y="341" width="287.5" height="24"/>
+                                <rect key="frame" x="16" y="373" width="287.5" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -377,50 +375,50 @@
             <objects>
                 <viewController id="BpP-wR-S1J" customClass="ProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Al2-Og-xFH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XAO-g3-uCP">
-                                <rect key="frame" x="0.0" y="56" width="414" height="140"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="140"/>
                                 <color key="backgroundColor" red="0.1431105137" green="0.62390446659999999" blue="0.94905763860000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="140" id="9bJ-7a-cUT"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="qLT-DR-PiD">
-                                <rect key="frame" x="16" y="161" width="70" height="70"/>
+                                <rect key="frame" x="16" y="193" width="70" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="UU7-RA-N5H"/>
                                     <constraint firstAttribute="width" constant="70" id="r4c-s2-N62"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Last" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kEF-MH-14R">
-                                <rect key="frame" x="16" y="239" width="108.5" height="30"/>
+                                <rect key="frame" x="16" y="271" width="108.5" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lo0-Wi-ODH">
-                                <rect key="frame" x="16" y="277" width="104" height="24"/>
+                                <rect key="frame" x="16" y="309" width="104" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmx-3L-TP3" customClass="TTTAttributedLabel">
-                                <rect key="frame" x="16" y="309" width="100" height="24"/>
+                                <rect key="frame" x="16" y="341" width="100" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="verified-icon" translatesAutoresizingMaskIntoConstraints="NO" id="ZM0-5b-xat">
-                                <rect key="frame" x="132.5" y="241.5" width="25" height="25"/>
+                                <rect key="frame" x="132.5" y="273.5" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="D6O-BE-74F"/>
                                     <constraint firstAttribute="width" constant="25" id="cPU-qD-aoh"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Tweets 0 Following 0 Followers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nJX-X9-Gdk">
-                                <rect key="frame" x="16" y="341" width="287.5" height="24"/>
+                                <rect key="frame" x="16" y="373" width="287.5" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -451,13 +449,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IeE-vT-2Eg"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Profile" id="Nye-eg-hQt">
-                        <barButtonItem key="rightBarButtonItem" title="Logout" id="GT6-f5-iQy">
-                            <connections>
-                                <action selector="didTapLogout:" destination="BpP-wR-S1J" id="qu4-Sd-IXq"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Profile" id="Nye-eg-hQt"/>
                     <connections>
                         <outlet property="descriptionLabel" destination="dmx-3L-TP3" id="Kwk-El-PuA"/>
                         <outlet property="headerImage" destination="XAO-g3-uCP" id="bPx-sA-Iox"/>
@@ -476,7 +468,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="b5c-8H-Cco">
             <objects>
-                <tabBarController storyboardIdentifier="StartNavigationController" id="zom-Fz-S6M" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zom-Fz-S6M" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Goe-rd-dAW"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tKW-n3-1jU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -501,7 +493,7 @@
             <objects>
                 <viewController id="vH6-NV-lvu" customClass="DetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="29m-YO-2gn">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="07C-A8-TJA">
@@ -821,7 +813,7 @@
                     <tabBarItem key="tabBarItem" title="Home" image="home-icon" id="U3H-p1-GWC"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ytz-Ev-cUB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.55346041690000003" green="0.86111265550000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
@@ -839,11 +831,11 @@
             <objects>
                 <viewController id="XQg-qe-prQ" customClass="MentionsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RxZ-iW-y5X">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c5u-7x-nB3">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="759"/>
+                                <rect key="frame" x="0.0" y="32" width="414" height="781"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="300" id="rLj-4A-gNN" customClass="TweetCell">
@@ -1037,7 +1029,7 @@
                     <tabBarItem key="tabBarItem" title="Profile" image="profile-Icon" id="NCl-ud-AV2"/>
                     <navigationItem key="navigationItem" id="uRI-xN-Dkf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2Sh-7x-30r">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.55346041685343672" green="0.86111265549689153" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
@@ -1072,12 +1064,12 @@
         <scene sceneID="LUM-Uk-rp0">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iET-eR-6pM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Mentions" selectedImage="notification-icon" id="0OY-Y4-aDF">
+                    <tabBarItem key="tabBarItem" title="Mentions" image="notification-icon" id="0OY-Y4-aDF">
                         <color key="badgeColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2Ns-gQ-eB9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.55346041690000003" green="0.86111265550000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
@@ -1092,11 +1084,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zYU-Au-oCQ"/>
-        <segue reference="n5H-cq-Atx"/>
-        <segue reference="CTD-YZ-MoK"/>
-        <segue reference="5kP-j3-YyP"/>
-        <segue reference="4jW-v8-aam"/>
+        <segue reference="j3u-u5-WJu"/>
+        <segue reference="ug4-SU-B92"/>
+        <segue reference="yvR-Jd-n5S"/>
+        <segue reference="ijk-cT-Bqw"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="TwitterLogoBlue" width="200" height="200"/>

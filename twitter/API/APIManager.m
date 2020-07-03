@@ -80,9 +80,7 @@ static NSString * const consumerSecret = @"";
 
 - (void)updateHomeTimelineAfter:(Tweet *)tweet withCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
     
-    int idNum = [tweet.idStr intValue]-1;
-    NSString *lookupValue = [NSString stringWithFormat:@"%d", idNum];
-    NSDictionary *parameters = @{@"max_id": lookupValue};
+    NSDictionary *parameters = @{@"max_id": tweet.idStr};
     
     // Create a GET Request
     [self GET:@"1.1/statuses/home_timeline.json"
